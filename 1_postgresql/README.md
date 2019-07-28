@@ -52,23 +52,38 @@ Install PostgreSQL database drivers by using the below command
 ```bash
 pip3 install psycopg2
 ```
-## Usage
+## Files in repo
 1. **sql_queries.py**: contains all SQL queries of the project and this file can be used in multiple files.
 2. **create_tables.py**: run this file after writing for creating tables for the project.
 3. **etl.ipynb**: reads and processes a single file from song_data and log_data and loads the data into your tables. This notebook contains detailed instructions on the ETL process for each of the tables.
-4. **etl.py**:   read  and process files from song_data and log_data and load them to tables. 
-5. **test.py**: displays the first few rows of each table to let you check your database.
+4. **etl.py**: read and process files from song_data and log_data and load them to tables. 
+5. **test.py**: displays the first few rows of each table to let you check your database, includes a couple of extra queries.
 
 ## execute files in the below order each time before pipeline.
 
    1. create_tables.py
       ```python
          $ python3 create_tables.py
-   2. etl.ipynb/etl.py
+   2. etl.py
       ```python
          $ python3 etl.py
    3. test.ipynb
 
-## Queries examples 
+## Queries examples and results
 
+### 1. How many users Male vs Female? How many songs did they listed to?
 
+```sql 
+   SELECT gender, COUNT(DISTINCT s.user_id) as unique_users, COUNT(*) as songplays_cnt 
+   FROM songplays s 
+   LEFT JOIN users u ON u.user_id = s.user_id
+   GROUP BY gender;
+   ```
+
+### 2. How many songs of each year do we have in our collection?
+```sql
+   SELECT year, count(*) as songs_cnt 
+   FROM songs 
+   GROUP BY year 
+   ORDER BY songs_cnt desc;
+```
