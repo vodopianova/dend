@@ -79,6 +79,13 @@ pip3 install psycopg2
    LEFT JOIN users u ON u.user_id = s.user_id
    GROUP BY gender;
    ```
+Result: 
+
+|gender  |unique_users  |songplays_cnt |
+|--------|-------------|-------------|
+|F       |55            | 4887         |
+|M       |41            | 1933         |
+
 
 ### 2. How many songs of each year do we have in our collection?
 ```sql
@@ -87,3 +94,28 @@ pip3 install psycopg2
    GROUP BY year 
    ORDER BY songs_cnt desc;
 ```
+Result: 
+
+| year | songs_cnt |
+| --- | --- |
+|0    | 43 |
+|2004 | 4 |
+|2003 | 2 |
+|1994 | 2 |
+|1997 | 2 |
+|2000 | 2 |
+|2005 | 2 |
+|1972 | 1 |
+|2007 | 1 |
+|1987 | 1 |
+|1961 | 1 |
+|1985 | 1 |
+|1984 | 1 |
+|1986 | 1 |
+|1999 | 1 |
+|1982 | 1 |
+|1964 | 1 |
+|1992 | 1 |
+|1969 | 1 |
+|2008 | 1 |
+|1993 | 1 |
