@@ -6,7 +6,17 @@ from sql_queries import *
 import datetime
 
 def process_song_file(cur, filepath):
-    """processing song files and inserting data to designated `songs` and `artists` tables"""
+    """
+    ETL on song_data to create songs and artists tables (dimensional). 
+    - Process a single song data file and upload to database. 
+    - Extract song data and insert records into songs table.
+    - Extract artist data and insert records into artists table.
+
+    Parameters:
+    - cur: cursor object that allows Python to execute PostgreSQL commands in a database session
+    - filepath: path to a log_data file
+    """
+    
     # open song file
     df = pd.read_json(filepath, lines=True)
 
@@ -20,7 +30,18 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
-    """processing logs files and inserting data to designated `users`, `time` and `songplays` tables"""
+    """
+    ETL on log_data to create the time and users tables (dimensional), and songplays table (fact).
+    - Process a single log file and load a single record into each table.
+    - Extract time data and insert records for the timestamps into table.
+    - Extract user data and insert records.
+    - Extract and inserts data for songplays table from different tables by implementing a select query.
+    
+    Parameters:
+    - cur: cursor object that allows Python to execute PostgreSQL commands in a database session
+    - filepath: path to a log_data file
+    """
+
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -67,7 +88,16 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
-    """collects data from all files in specified directory and processes data using func"""
+    """
+    Process all files within the filepath directory using function from the input.
+    
+    Parameters:
+    - cur: cursor object that allows Python to execute PostgreSQL commands in a database session
+    - conn: connection created to the database
+    - filepath: path to the data file
+    - func: function that will be used to process data
+    """
+
     # get .json files from the directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
