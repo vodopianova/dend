@@ -1,3 +1,4 @@
 .idea
 1_postgresql/data/*
+2_cassandra/events_data/*
 .ipynb_checkpoints
